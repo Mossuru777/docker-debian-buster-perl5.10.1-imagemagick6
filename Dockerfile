@@ -3,8 +3,8 @@ MAINTAINER Mossuru777 "mossuru777@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Setup Apt
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y install apt-utils
+# Setup
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y install apt-utils nkf
 
 # Install Perl 5.10.1 & App::cpanminus
 # (ref: https://github.com/Perl/docker-perl/tree/9c264844428eaef70ec0c8eefc213cae53fdf12f/5.010.001-main)
