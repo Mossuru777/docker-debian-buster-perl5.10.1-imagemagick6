@@ -26,9 +26,11 @@ RUN true \
     && cd /usr/src \
     && curl -LO https://www.cpan.org/authors/id/M/MI/MIYAGAWA/App-cpanminus-1.7044.tar.gz \
     && echo '9b60767fe40752ef7a9d3f13f19060a63389a5c23acc3e9827e19b75500f81f3 *App-cpanminus-1.7044.tar.gz' | sha256sum -c - \
-    && tar -xzf App-cpanminus-1.7044.tar.gz && cd App-cpanminus-1.7044 && perl bin/cpanm . && cd /root \
-    && true \
-    && rm -fr ./cpanm /root/.cpanm /usr/src/perl /usr/src/App-cpanminus-1.7044* /tmp/**
+    && tar -xzf App-cpanminus-1.7044.tar.gz && cd App-cpanminus-1.7044 \
+    && perl bin/cpanm . \
+    && cd /root \
+    && rm -fr ./cpanm /root/.cpanm /usr/src/perl /usr/src/App-cpanminus-1.7044* /tmp/** \
+    && true
 
 # Install ImageMagick & PerlMagick
 WORKDIR /usr/src/imagemagick
@@ -45,12 +47,13 @@ RUN true \
     && ./configure LDFLAGS="-L/usr/local/lib/perl5/5.10.1/x86_64-linux-gnu/CORE" --enable-shared --with-perl=/usr/local/bin/perl \
     && make -j$(nproc) \
     && make install \
-    && cd /root && true \
-    && rm -fr /usr/src/imagemagick
+    && cd /root \
+    && rm -fr /usr/src/imagemagick /tmp/** \
+    && true
 
 # Remove temporary files
-WORKDIR /root
-RUN rm -fr /tmp/**
 RUN apt-get -y clean
+
+WORKDIR /root
 
 CMD /bin/sh
