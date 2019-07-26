@@ -52,3 +52,5 @@ RUN true \
 WORKDIR /root
 RUN rm -fr /tmp/**
 RUN apt-get -y clean
+
+CMD /bin/sh
