@@ -4,7 +4,11 @@ MAINTAINER Mossuru777 "mossuru777@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Setup
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y install apt-utils nkf
+RUN apt-get -y update \
+    && apt-get -y upgrade \
+    && apt-get -y install --no-install-recommends \
+        apt-utils \
+        nkf
 
 # Install Perl 5.10.1 & App::cpanminus
 # (ref: https://github.com/Perl/docker-perl/tree/9c264844428eaef70ec0c8eefc213cae53fdf12f/5.010.001-main)
@@ -38,8 +42,8 @@ RUN apt-get -y install --no-install-recommends \
         libgif7 \
         libgif-dev \
         libpng16-16 \
-        libpng-dev
-RUN true \
+        libpng-dev \
+    && apt-get -y clean \
     && curl -SL https://github.com/ImageMagick/ImageMagick6/archive/6.9.10-56.tar.gz -o imagemagick-6.9.10-56.tar.gz \
     && echo 'a80f448ea2d0abe52a9a91ae0ce29c90569f7aafd6143a2fe4cfe4a0c7893dbc *imagemagick-6.9.10-56.tar.gz' | sha256sum -c - \
     && tar --strip-components=1 -xaf imagemagick-6.9.10-56.tar.gz -C /usr/src/imagemagick \
@@ -50,9 +54,6 @@ RUN true \
     && cd /root \
     && rm -fr /usr/src/imagemagick /tmp/** \
     && true
-
-# Remove temporary files
-RUN apt-get -y clean
 
 WORKDIR /root
 
