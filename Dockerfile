@@ -1,4 +1,4 @@
-FROM buildpack-deps:buster
+FROM node:lts-buster
 MAINTAINER Mossuru777 "mossuru777@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -8,7 +8,16 @@ RUN apt-get -y update \
     && apt-get -y upgrade \
     && apt-get -y install --no-install-recommends \
         apt-utils \
-        nkf
+        nkf \
+        gnupg
+
+# Install Google Chrome
+WORKDIR /tmp
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+  && apt install -y ./google-chrome-stable_current_amd64.deb \
+  && apt clean \
+  && rm google-chrome-stable_current_amd64.deb
 
 # Install Perl 5.10.1 & App::cpanminus
 # (ref: https://github.com/Perl/docker-perl/tree/9c264844428eaef70ec0c8eefc213cae53fdf12f/5.010.001-main)
