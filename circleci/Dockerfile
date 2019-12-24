@@ -10,7 +10,13 @@ RUN apt-get -y update \
     && apt-get -y upgrade \
     && apt-get -y install --no-install-recommends \
         apt-utils \
-        nkf
+        nkf \
+        sed \
+        locales \
+        fonts-ipafont \
+    && sed -i -e 's/^# *\(ja_JP.UTF-8.*\)/\1/' /etc/locale.gen \
+    && locale-gen \
+    && update-locale LANG=ja_JP.UTF-8
 
 # Install Perl 5.10.1 & App::cpanminus
 # (ref: https://github.com/Perl/docker-perl/tree/9c264844428eaef70ec0c8eefc213cae53fdf12f/5.010.001-main)

@@ -9,7 +9,13 @@ RUN apt-get -y update \
     && apt-get -y install --no-install-recommends \
         apt-utils \
         nkf \
-        gnupg
+        gnupg \
+        sed \
+        locales \
+        fonts-ipafont \
+    && sed -i -e 's/^# *\(ja_JP.UTF-8.*\)/\1/' /etc/locale.gen \
+    && locale-gen \
+    && update-locale LANG=ja_JP.UTF-8
 
 # Install Google Chrome
 WORKDIR /tmp
