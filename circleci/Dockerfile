@@ -1,4 +1,4 @@
-FROM circleci/node:lts-buster-browsers
+FROM circleci/node:14-buster-browsers
 MAINTAINER Mossuru777 "mossuru777@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive

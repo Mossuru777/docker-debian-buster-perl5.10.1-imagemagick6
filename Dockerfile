@@ -1,4 +1,4 @@
-FROM node:lts-buster
+FROM node:14-buster
 MAINTAINER Mossuru777 "mossuru777@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
